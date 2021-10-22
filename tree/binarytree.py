@@ -19,7 +19,7 @@ class Tree:
             if self.right is not None:
                 return self.right.insert(data)
             else:
-                self.rigt = Tree(data)
+                self.right = Tree(data)
                 return True 
 
 
@@ -48,13 +48,12 @@ class Tree:
         return element
 
 
-root = Tree(27)
-root.insert(14)
-root.insert(35)
-root.insert(10)
-root.insert(19)
-root.insert(31)
-root.insert(42)
+root = Tree(9)
+root.insert(5)
+root.insert(2)
+root.insert(4)
+root.insert(11)
+
 print(root.inorder_traversal())
 '''def build_tree(data):
     bt = Tree(7)
