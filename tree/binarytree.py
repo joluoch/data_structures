@@ -28,8 +28,6 @@ class Tree:
 
         # for inorder traversal we firstvisit the left--> Node--> right 
         # make a list to add everything in the tree 
-
-
         element = []
 
         # visit the left side first 
@@ -44,9 +42,42 @@ class Tree:
         if self.right : 
             element += self.right.inorder_traversal()
 
-
         return element
+    
+    def getval (self,val):
+        if self.data ==val:
+            return True
+        
+        if self.data > val :
+            #value might be on the left side 
+            if self.left is  None:
+                return False
+            else:
+                return self.left.getval(val)
+        if val > self.data :
+            # value might be on the right side 
+            if self.right is None:
+                return False 
+            else:
+                return self.right.getval(val)
 
+    def size(self):
+        # addition is 1 + the size of the left subtree + the size of the right subtree 
+        if self.left is not None  and self.right is not None :
+            return 1 + self.left.size()+self.right.size()
+        else:
+            return 0 
+
+
+
+
+
+
+
+
+# post traversal 
+#pre order traversal 
+#
 
 root = Tree(9)
 root.insert(5)
