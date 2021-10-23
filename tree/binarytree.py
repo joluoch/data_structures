@@ -43,6 +43,30 @@ class Tree:
             element += self.right.inorder_traversal()
 
         return element
+    def preorder (self):
+        element = []
+        # visit the node 
+        element . append(self.data)
+
+        if self.left:
+            element += self.left.inorder_traversal()
+        
+        if self.right : 
+            element += self.right.inorder_traversal()
+    
+    def postorder (self):
+        element = []
+        
+
+        if self.left:
+            element += self.left.inorder_traversal()
+        
+        if self.right : 
+            element += self.right.inorder_traversal()
+        
+        element . append(self.data)
+
+
     
     def getval (self,val):
         if self.data ==val:
@@ -67,6 +91,8 @@ class Tree:
             return 1 + self.left.size()+self.right.size()
         else:
             return 0 
+    
+    #def delete(sel,val):
 
 
 
