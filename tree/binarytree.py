@@ -6,8 +6,10 @@ class Tree:
 
 
     def insert (self, data):
+
         if self.data == data:
             return False # checking for duplicate 
+
         elif self.data > data:
             if self.left is not None:
                 return self.left.insert(data)# we call recursively the insert function will movingdown the left
@@ -44,6 +46,7 @@ class Tree:
 
         return element
     def preorder (self):
+        # ROOT --> LEFT --> RIGHT
         element = []
         # visit the node 
         element . append(self.data)
@@ -55,6 +58,7 @@ class Tree:
             element += self.right.inorder_traversal()
     
     def postorder (self):
+        # LEFT --> RIGHT --> ROOT 
         element = []
         
 
@@ -67,18 +71,19 @@ class Tree:
         element . append(self.data)
 
 
-    
     def getval (self,val):
         if self.data ==val:
             return True
         
         if self.data > val :
+            # If the value is less that head 
             #value might be on the left side 
             if self.left is  None:
                 return False
             else:
                 return self.left.getval(val)
         if val > self.data :
+            # if value is greater than 
             # value might be on the right side 
             if self.right is None:
                 return False 
@@ -90,9 +95,48 @@ class Tree:
         if self.left is not None  and self.right is not None :
             return 1 + self.left.size()+self.right.size()
         else:
-            return 0 
+            return 0 #
     
-    #def delete(sel,val):
+    def find_max(self):
+        #finding tthe maximum value, as always the right size is expectd to have greater values than the left side so we will check the right and not left 
+
+        if self.right is None:
+            return self.data
+        return self.right.find_max()
+    
+    def find_min (self):
+        if self.left is None:
+            return self.data
+        return self.left.find_min()
+
+    def delete(self,val):
+        if val < self.data:#left side
+            if self.left:
+                self.left = self.left.delete(val)
+        elif val > self.data:
+            if self.right:
+                self.right = self.right.delete(val)
+
+        else:
+            if self.left is None and self.right is None:
+                return None
+            if self.left is None:
+                return self.right
+            if self.right is None:
+                return self.right 
+
+            min_val = self.right.find_min()
+            self.data = min_val
+            self.right = self.right.delete(min_val)
+
+            # 
+            max_val = self.left.find_max()
+            self.data = max_val
+            self.left = self.left.delete(max_val)
+
+        return self
+
+
 
 
 
