@@ -157,6 +157,62 @@ class Tree:
 
         return self
 
+    def maxDepth(self,root):
+        # Null node has 0 depth.
+        if root == None:
+            return 0
+
+        # Get the depth of the left and right subtree 
+        # using recursion.
+        leftDepth = self.maxDepth(root.left)
+        rightDepth = self.maxDepth(root.right)
+
+        # Choose the larger one and add the root to it.
+        if leftDepth > rightDepth:
+            return leftDepth + 1
+        else:
+            return rightDepth + 1
+
+
+    #check if they are symmetrical 
+    def isMirror(self,root1, root2):
+    # If both trees are empty, then they are mirror images
+        if root1 is None and root2 is None:
+            return True
+    
+        """ For two trees to be mirror images,
+            the following three conditions must be true
+            1 - Their root node's key must be same
+            2 - left subtree of left tree and right subtree
+            of the right tree have to be mirror images
+            3 - right subtree of left tree and left subtree
+            of right tree have to be mirror images
+        """
+        if (root1 is not None and root2 is not None):
+            if root1.key == root2.key:
+                return (self.isMirror(root1.left, root2.right)and
+                        self.isMirror(root1.right, root2.left))
+    
+        # If none of the above conditions is true then root1
+        # and root2 are not mirror images
+        return False
+    
+ 
+    def isSymmetric(self,root):
+        # Check if tree is mirror of itself
+        return self.isMirror(root, root)
+
+'''   def isSymmetric(self, root) -> bool:
+        def recur_search(left,right):
+            if not left and not right: return True              # Both reach an end
+            if not (left and right): return False               # Not match, when one has val but another doesn't
+                                                                # Check "None" first for avoiding Null value access error
+            if left.val == right.val:                           # Vals match, Check next level
+                c_left = recur_search(left.left, right.right)   # Take node.left as a new sub-root. [root,left,right]
+                c_right = recur_search(left.right, right.left)  # Take node.right as a new sub-root. [root,right,left]
+                return c_left and c_right                       # Both new sub-root search should return True
+            return False                                        # Two node's vals not match. 
+        return recur_search(root.left, root.right)'''
 
 
 
@@ -185,4 +241,17 @@ print("After deleting 20 ",root.inorder_traversal())
     
 
 
+''' def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        
+        result = []
+        self.traverse(root, result)
+        return result
     
+
+    def traverse(self, root, result):
+        if root == None:
+            return
+        
+        self.traverse(root.left, result)
+        result.append(root.val)
+        self.traverse(root.right, result)'''
