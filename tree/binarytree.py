@@ -1,3 +1,4 @@
+import collections
 class Tree:
     def __init__ (self,data):
         self.left = None
@@ -202,6 +203,35 @@ class Tree:
         # Check if tree is mirror of itself
         return self.isMirror(root, root)
 
+    # print out the values of each level [[1],[2,3],[4,5]]
+    def levelOrder(self, root):
+        levelorder=[]
+        
+        if root is None:
+            return levelorder
+        
+        queue = collections.deque()
+        queue.append(root)
+        
+        while queue:
+            size = len(queue)
+            List=[]
+            
+            while size >0:
+                Node = queue.popleft()
+                List.append(Node.val)
+                size -=1
+                
+                if Node.left is not None:
+                    queue.append(Node.left)
+                if Node.right is not None:
+                    
+                    queue.append(Node.right)
+            levelorder.append(List)
+        return levelorder
+                
+        
+
 '''   def isSymmetric(self, root) -> bool:
         def recur_search(left,right):
             if not left and not right: return True              # Both reach an end
@@ -216,7 +246,7 @@ class Tree:
 
 
 
-
+    
 
 
 root = Tree(17)
