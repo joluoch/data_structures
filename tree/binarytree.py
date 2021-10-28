@@ -202,6 +202,33 @@ class Tree:
     def isSymmetric(self,root):
         # Check if tree is mirror of itself
         return self.isMirror(root, root)
+        
+    #check if a sum exists from root to leaf path 
+    def hasPathSum(self, root,targetSum):
+        if not root:   
+            return False
+        remaining = targetSum - root.val
+        if not root.left and not root.right:
+            
+            if remaining == 0:
+                
+                return True
+            
+            return False
+        
+
+        if root.left and not root.right:
+            
+            return self.hasPathSum(root.left, remaining)
+        
+
+        if not root.left and root.right:
+            
+            return self.hasPathSum(root.right, remaining)
+
+        if root.left and root.right:
+            
+            return self.hasPathSum(root.left, remaining) or self.hasPathSum(root.right, remaining)
 
     # print out the values of each level [[1],[2,3],[4,5]]
     def levelOrder(self, root):
@@ -229,20 +256,10 @@ class Tree:
                     queue.append(Node.right)
             levelorder.append(List)
         return levelorder
-                
         
-
-'''   def isSymmetric(self, root) -> bool:
-        def recur_search(left,right):
-            if not left and not right: return True              # Both reach an end
-            if not (left and right): return False               # Not match, when one has val but another doesn't
-                                                                # Check "None" first for avoiding Null value access error
-            if left.val == right.val:                           # Vals match, Check next level
-                c_left = recur_search(left.left, right.right)   # Take node.left as a new sub-root. [root,left,right]
-                c_right = recur_search(left.right, right.left)  # Take node.right as a new sub-root. [root,right,left]
-                return c_left and c_right                       # Both new sub-root search should return True
-            return False                                        # Two node's vals not match. 
-        return recur_search(root.left, root.right)'''
+        
+       
+        
 
 
 
@@ -285,3 +302,15 @@ print("After deleting 20 ",root.inorder_traversal())
         self.traverse(root.left, result)
         result.append(root.val)
         self.traverse(root.right, result)'''
+
+'''   def isSymmetric(self, root) -> bool:
+        def recur_search(left,right):
+            if not left and not right: return True              # Both reach an end
+            if not (left and right): return False               # Not match, when one has val but another doesn't
+                                                                # Check "None" first for avoiding Null value access error
+            if left.val == right.val:                           # Vals match, Check next level
+                c_left = recur_search(left.left, right.right)   # Take node.left as a new sub-root. [root,left,right]
+                c_right = recur_search(left.right, right.left)  # Take node.right as a new sub-root. [root,right,left]
+                return c_left and c_right                       # Both new sub-root search should return True
+            return False                                        # Two node's vals not match. 
+        return recur_search(root.left, root.right)'''
