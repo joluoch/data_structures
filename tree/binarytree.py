@@ -202,7 +202,7 @@ class Tree:
     def isSymmetric(self,root):
         # Check if tree is mirror of itself
         return self.isMirror(root, root)
-        
+
     #check if a sum exists from root to leaf path 
     def hasPathSum(self, root,targetSum):
         if not root:   
@@ -230,6 +230,7 @@ class Tree:
             
             return self.hasPathSum(root.left, remaining) or self.hasPathSum(root.right, remaining)
 
+
     # print out the values of each level [[1],[2,3],[4,5]]
     def levelOrder(self, root):
         levelorder=[]
@@ -256,6 +257,24 @@ class Tree:
                     queue.append(Node.right)
             levelorder.append(List)
         return levelorder
+
+        #building a tree from a post order and inorder traversal
+        # adopted from https://www.youtube.com/watch?v=_1ZJ343CYIU
+    def buildTree(self, inorder, postorder):
+        mapper= {}
+        
+        for i,v in enumerate(inorder):
+            mapper[v] = i
+        def rec(low,high):
+            if low>high:
+                return
+            
+            root = Tree(postorder.pop())
+            mid = mapper[root.val]
+            root.right = rec (mid+1, high)
+            root.left = rec (low,mid -1)
+            return root
+        return rec(0,len(inorder)-1)
         
         
        
