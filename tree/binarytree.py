@@ -7,6 +7,13 @@ class Tree:
 
 
     def insert (self, data):
+        '''In order to insert a node in the tree first we will have to check if that value is in the tree,
+            this is because trees do not accept duplicate values
+            Seconddly , we will check if the value we want to insert is less than our root node, if this is true then, 
+            we ill insert the node in the left side. we will have to recursivly move through the left side to find the perect position
+            then insert our node
+            if the value is greater than our root then we will do the same to the right side of the tree 
+        '''
 
         if self.data == data:
             return False # checking for duplicate 
@@ -28,6 +35,7 @@ class Tree:
 
 
     def inorder_traversal (self):
+        # traversals help us print the values of the tree 
 
         # for inorder traversal we first visit the left--> Node--> right 
 
