@@ -117,6 +117,9 @@ class MyLinkedList:
             prev = prev.next
         prev.next = last.next
         last.next = None
+    
+    #function to print in reverse 
+    
         
 
 

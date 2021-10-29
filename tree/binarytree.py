@@ -13,9 +13,9 @@ class Tree:
 
         elif self.data > data:
             if self.left is not None:
-                return self.left.insert(data)# we call recursively the insert function will movingdown the left
+                return self.left.insert(data)# we call recursively the insert function will moving down the left
             else: 
-                #if we find the correct position toinsert it then we crete the node
+                #if we find the correct position to insert it then we create the node
                 self.left = Tree (data)
                 return True 
         else:
@@ -47,6 +47,22 @@ class Tree:
             element += self.right.inorder_traversal()
 
         return element
+
+        #inorder alternative 
+    ''' def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        
+        result = []
+        self.traverse(root, result)
+        return result
+    
+
+    def traverse(self, root, result):
+        if root == None:
+            return
+        
+        self.traverse(root.left, result)
+        result.append(root.val)
+        self.traverse(root.right, result)'''
 
 
     def preorder (self):
@@ -175,7 +191,8 @@ class Tree:
             return rightDepth + 1
 
 
-    #check if they are symmetrical 
+    #check if they are symmetrical  
+    # this function works with two 
     def isMirror(self,root1, root2):
     # If both trees are empty, then they are mirror images
         if root1 is None and root2 is None:
@@ -202,7 +219,7 @@ class Tree:
     def isSymmetric(self,root):
         # Check if tree is mirror of itself
         return self.isMirror(root, root)
-        
+
     #check if a sum exists from root to leaf path 
     def hasPathSum(self, root,targetSum):
         if not root:   
@@ -230,6 +247,7 @@ class Tree:
             
             return self.hasPathSum(root.left, remaining) or self.hasPathSum(root.right, remaining)
 
+
     # print out the values of each level [[1],[2,3],[4,5]]
     def levelOrder(self, root):
         levelorder=[]
@@ -256,6 +274,71 @@ class Tree:
                     queue.append(Node.right)
             levelorder.append(List)
         return levelorder
+
+        #building a tree from a post order and inorder traversal
+        # adopted from https://www.youtube.com/watch?v=_1ZJ343CYIU
+    def buildTree(self, inorder, postorder):
+        mapper= {}
+        
+        for i,v in enumerate(inorder):
+            mapper[v] = i
+        def rec(low,high):
+            if low>high:
+                return
+            
+            root = Tree(postorder.pop())
+            mid = mapper[root.val]
+            root.right = rec (mid+1, high)
+            root.left = rec (low,mid -1)
+            return root
+        return rec(0,len(inorder)-1)
+    # an alternate of building the tree with post order and inorder 
+    #def build tree(self, inorder, postorder):
+        #def recursion(inorder,postorder):
+            #if not inorder or not postorder:
+                #return 
+            #root = Node(postorder.pop()) # we are poping the last element from the list and using it to create the root node of our tree
+            #mid = inorder.index(root.val) # we will set the root value as the mid point of our inorder, this way we divide the traversal into right subtree and left subtree
+            #root.right = recursion(inorder[mid+1:],postorder) # this will mean from our inorderlist from the root which we set as the middle we will index all the element on its right to belong to the right subtree
+            #root.left = rec(inorder[:mid],postorder)# the left we will use mid because the las element in indexing is not included
+            #return root
+        #return recursion(inorder,postorder)
+    # build a tree from pre order and inorder 
+
+    
+    def buildTree(self, preorder, inorder) :
+        
+        if not preorder or not inorder:
+            return None
+        
+        root = Tree(preorder[0])
+        
+        mid = inorder.index(preorder[0])
+        
+        root.left = self.buildTree(preorder[1:mid+1],inorder[:mid])
+        root.right = self.buildTree(preorder[mid+1:],inorder[mid+1:])
+        
+        return root
+    
+    # Populating Next Right Pointers in Each Node of a perfect tree
+    # Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+    #Initially, all next pointers are set to NULL.
+    def connect(self, root) :
+        if not root:
+            return
+        if root.left:
+            root.left.next = root.right
+        if root.right:
+            if root.next:
+                root.right.next = root.next.left
+            else:
+                root.right.next = None
+        self.connect(root.right)
+        self.connect(root.left)
+        
+        return root
+
+    
         
         
        
@@ -288,20 +371,7 @@ print("After deleting 20 ",root.inorder_traversal())
     
 
 
-''' def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        
-        result = []
-        self.traverse(root, result)
-        return result
-    
 
-    def traverse(self, root, result):
-        if root == None:
-            return
-        
-        self.traverse(root.left, result)
-        result.append(root.val)
-        self.traverse(root.right, result)'''
 
 '''   def isSymmetric(self, root) -> bool:
         def recur_search(left,right):
