@@ -345,6 +345,67 @@ class Tree:
         self.connect(root.left)
         
         return root
+    
+    '''Lowest Common ancestor: The lowest common ancestor is defined between two nodes node1 and node2 as 
+    the lowest node in a tree that has both node1 and node2 as descendants (a node can be a descendant of itself).
+    
+    -> Recursive approach — Recursively look for any of the two nodes and return it, 
+    the first node to encounter both of them in its subtree is the ancestor.'''
+    def lowestCommonAncestor(self, root, p, q) :
+        if not root:
+            return None
+        if root == p or root == q :
+            return root
+        left = self.lowestCommonAncestor(root.left,p,q)
+        right = self.lowestCommonAncestor(root.right,p,q)
+        
+        if not left:
+            return right
+        if not right:
+            return left 
+        else:
+            return root 
+    #deserilaze and serialize 
+    #will be acomplished through preorder 
+    
+    def serialize(self, root):
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        res =[]
+        
+        def dfs(node):
+            if not node :
+                res.append('N')
+                return
+            res.append(str(node.val))
+            dfs(node.left)
+            dfs(node.right)
+        dfs(root)
+        return ','.join(res)
+        
+
+    def deserialize(self, data):
+        """Decodes your encoded data to tree.
+        
+        :type data: str
+        :rtype: TreeNode
+        """
+        vals = data.split(',')
+        self.i = 0
+        
+        def dfs():
+            if vals[self.i]== 'N':
+                self.i +=1
+                return None
+            node = Tree(int(vals[self.i]))
+            self.i += 1
+            node.left = dfs()
+            node.right = dfs()
+            return node 
+        return dfs()
 
     
         
