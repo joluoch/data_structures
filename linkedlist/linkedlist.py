@@ -23,6 +23,7 @@ class MyLinkedList:
                 return current.val
             count+= 1
             current = current.next 
+
         
         
         
@@ -65,13 +66,13 @@ class MyLinkedList:
         new_node.next = temp.next
         temp.next =new_node
         
-    def print (self):
+    def display (self):
         if self.head is None:
             print ("linked list is empty")
         else:
             temp = self.head
             while temp:
-                print (temp.data, "-->", end = "")
+                print (temp.val, "-->", end = "")
                 temp =temp.next
     
     def deleteAtBegin(self):
@@ -94,41 +95,56 @@ class MyLinkedList:
 
     def deleteAtIndex(self, index: int) -> None:
 
-        # store head node 
-        temp = self.head
-        last =self.head.next
-        prev =self.head 
-        
-        # if linked list is empty
-        
+
+        # If linked list is empty
         if self.head == None:
             return 
-         
-        # if head needs to be removed
-        
-        if index == 0 :
-            self.head = temp.next 
-            temp.next = None
+  
+        # Store head node
+        temp = self.head
+  
+        # If head needs to be removed
+        if index == 0:
+            self.head = temp.next
+            temp = None
             return 
-    
-        
-        for i in range (1,index -1 ):
-            last = last.next
-            prev = prev.next
-        prev.next = last.next
-        last.next = None
+  
+        # Find previous node of the node to be deleted
+        for i in range(index -1 ):
+            temp = temp.next
+            if temp is None:
+                break
+  
+        # If position is more than number of nodes
+        if temp is None:
+            return 
+        if temp.next is None:
+            return 
+  
+        # Node temp.next is the node to be deleted
+        # store pointer to the next of node to be deleted
+        next = temp.next.next
+  
+        # Unlink the node from linked list
+        temp.next = None
+  
+        temp.next = next 
     
     #function to print in reverse 
     
         
 
 
-# Your MyLinkedList object will be instantiated and called as such:
+# Your MyLinkedList object 
+# will be instantiated and called as such:
 obj = MyLinkedList()
 obj.addAtHead(1)
-obj.addAtHead(2)
-obj.addAtHead(3)
-obj.addAtTail(5)
-obj.addAtIndex(2,5)
-obj.deleteAtIndex(2)
-param_1 = obj.get(3)
+obj.addAtTail(3)
+obj.addAtIndex(1,2)
+obj.display()
+print(obj.get(1))
+obj.deleteAtIndex(1)
+print(obj.get(1))
+obj.display()
+
+
