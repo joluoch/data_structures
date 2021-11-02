@@ -130,7 +130,97 @@ class MyLinkedList:
   
         temp.next = next 
     
-    #function to print in reverse 
+    '''
+    function to check if a linked list has a cycle
+    this can be solved in alot of ways .i will show you three common ways 
+    https://www.geeksforgeeks.org/detect-loop-in-a-linked-list/
+    1. by using hashtable : 
+        Traverse the list one by one and keep putting the node addresses in a Hash Table. 
+        At any point, if NULL is reached then return false, and if the next of the current nodes points to any of the previously stored nodes in 
+         Hash then return true.
+
+    2. by using Floyd’s Cycle-Finding Algorithm :
+        This is the fastest method and has been described below:  
+        1. Traverse linked list using two pointers.
+        2. one pointer(slow_p) by one and another pointer(fast_p) by two.
+        3. If these pointers meet at the same node then there is a loop. 
+        4. If pointers do not meet then linked list doesn’t have a loop.
+        
+
+
+    3. by Marking visited nodes without modifying the linked list data structure :
+        In this method, a temporary node is created. The next pointer of each node that is traversed is made to point to this temporary node. 
+        This way we are using the next pointer of a node as a flag to indicate whether the node has been traversed or not. 
+        Every node is checked to see if the next is pointing to a temporary node or not. 
+        In the case of the first node of the loop, the second time we traverse it this condition will be true, hence we find that loop exists. 
+        If we come across a node that points to null then the loop doesn’t exist. '''
+
+    
+    def detectLoop(self): # using floyd's cycle 
+        
+        slow_p = self.head
+
+        fast_p = self.head
+
+        while(slow_p and fast_p and fast_p.next):
+
+            slow_p = slow_p.next
+
+            fast_p = fast_p.next.next
+
+            if slow_p == fast_p:
+
+
+                return
+    #checking where the cycle starts from 
+    def detectCycle(self, head):
+
+        # If list is empty or has only one node
+        # without loop
+
+        if head == None or head.next == None:
+
+            return None
+
+        slow = head 
+
+        fast = head
+        
+        # Move slow and fast 1 and 2 steps
+        # ahead respectively.
+        slow = slow.next 
+
+        fast = fast.next.next
+
+        # Search for loop using slow and
+        # fast pointers
+        
+        while fast and fast.next:
+
+            if slow == fast:
+
+                break
+            slow = slow.next 
+
+            fast = fast.next.next 
+
+        # If loop does not exist
+        if slow!= fast:
+
+            return None
+
+        slow = head
+        
+        # If loop exists. Start slow from
+        # head and fast from meeting point.
+        while slow != fast :
+
+            slow = slow.next 
+
+            fast = fast.next 
+
+        return slow 
+        
     
         
 
