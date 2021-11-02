@@ -210,7 +210,7 @@ class MyLinkedList:
             return None
 
         slow = head
-        
+
         # If loop exists. Start slow from
         # head and fast from meeting point.
         while slow != fast :
@@ -220,6 +220,48 @@ class MyLinkedList:
             fast = fast.next 
 
         return slow 
+    
+    '''intersection of two lists
+        Using Two pointers : 
+
+        1. Initialize two pointers ptr1 and ptr2  at the head1 and  head2.
+        2. Traverse through the lists,one node at a time.
+        3. When ptr1 reaches the end of a list, then redirect it to the head2.
+        4. similarly when ptr2 reaches the end of a list, redirect it the head1.
+        5. Once both of them go through reassigning, they will be equidistant from the collision point
+        6. If at any node ptr1 meets ptr2, then it is the intersection node.
+        7. After second iteration if there is no intersection node it returns NULL.'''
+
+    def getIntersectionNode(self, headA, headB):
+        
+        p_1 = headA
+
+        p_2 = headB
+        
+        if p_1 == None and p_2 == None:
+
+            return None
+
+        while p_1 != p_2 :
+
+            p_1 = p_1.next
+
+            p_2 = p_2.next 
+            
+            if p_1 == p_2:
+
+                return p_1
+
+            if p_1 ==None:
+
+                p_1 = headB
+
+            if p_2 == None:
+                
+                p_2 = headA
+
+        return p_1
+
         
     
         
