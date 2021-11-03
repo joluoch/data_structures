@@ -261,6 +261,26 @@ class MyLinkedList:
                 p_2 = headA
 
         return p_1
+    
+    #reversed linked list 
+    def reverseList(self, head):
+        
+        if head is None or head.next is None:
+            return head 
+        #we will use two pointers alreadyreversed will point to the firt node and current will point to the next node
+        # we will make already revversed, which is out head to point to none, meaning it has already been reversed 
+        alreadyReversed,current = head,head.next
+        alreadyReversed.next= None
+        # while our next pointer, current isn't pointing to the original none(end)
+        while current is not None:
+            # we make another pointer that will store the third value in our original list 
+            storePtr  = current.next
+            #then we will reverse the third value to point the reversed which we moved one step forward
+            current.next = alreadyReversed
+            
+            alreadyReversed = current
+            current = storePtr
+        return alreadyReversed 
 
         
     
