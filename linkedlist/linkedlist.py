@@ -159,15 +159,12 @@ class MyLinkedList:
     def detectLoop(self): # using floyd's cycle 
         
         slow_p = self.head
-
         fast_p = self.head
 
         while(slow_p and fast_p and fast_p.next):
 
             slow_p = slow_p.next
-
             fast_p = fast_p.next.next
-
             if slow_p == fast_p:
 
 
@@ -179,17 +176,14 @@ class MyLinkedList:
         # without loop
 
         if head == None or head.next == None:
-
             return None
 
         slow = head 
-
         fast = head
         
         # Move slow and fast 1 and 2 steps
         # ahead respectively.
         slow = slow.next 
-
         fast = fast.next.next
 
         # Search for loop using slow and
@@ -198,15 +192,12 @@ class MyLinkedList:
         while fast and fast.next:
 
             if slow == fast:
-
                 break
             slow = slow.next 
-
             fast = fast.next.next 
 
         # If loop does not exist
         if slow!= fast:
-
             return None
 
         slow = head
@@ -214,9 +205,7 @@ class MyLinkedList:
         # If loop exists. Start slow from
         # head and fast from meeting point.
         while slow != fast :
-
             slow = slow.next 
-
             fast = fast.next 
 
         return slow 
@@ -235,29 +224,23 @@ class MyLinkedList:
     def getIntersectionNode(self, headA, headB):
         
         p_1 = headA
-
         p_2 = headB
         
         if p_1 == None and p_2 == None:
-
             return None
 
         while p_1 != p_2 :
 
             p_1 = p_1.next
-
             p_2 = p_2.next 
             
             if p_1 == p_2:
-
                 return p_1
 
             if p_1 ==None:
-
                 p_1 = headB
 
             if p_2 == None:
-                
                 p_2 = headA
 
         return p_1
@@ -281,7 +264,32 @@ class MyLinkedList:
             alreadyReversed = current
             current = storePtr
         return alreadyReversed 
-
+    #DELETE ALL OCCURRANCE OF A VALUE IN THE LIST 
+    def removeElements(self, head, val):
+        
+        temp = head
+        prev = None
+        # If head node itself holds the key
+        # or multiple occurrences of key
+        while temp!=None and temp.val == val:
+            head = temp.next #change head
+            temp = head #change temp 
+        # Delete occurrences other than head
+        while temp!=None:
+            # Search for the key to be deleted,
+            # keep track of the previous node
+            # as we need to change 'prev.next'
+            while temp!=None and temp.val !=val:
+                prev = temp
+                temp = temp.next
+            # If key was not present in linked list
+            if temp == None:
+                return head
+            # Unlink the node from linked lis
+            prev.next = temp.next 
+            # Update Temp for next iteration of outer loop
+            temp=prev.next
+        return head
         
     
         
