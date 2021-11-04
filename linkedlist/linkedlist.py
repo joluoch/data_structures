@@ -264,6 +264,7 @@ class MyLinkedList:
             alreadyReversed = current
             current = storePtr
         return alreadyReversed 
+
     #DELETE ALL OCCURRANCE OF A VALUE IN THE LIST 
     def removeElements(self, head, val):
         
@@ -291,7 +292,70 @@ class MyLinkedList:
             temp=prev.next
         return head
         
-    
+    def oddEvenList(self, head):
+        #base case check if head and null
+        if head == None or head.next == None:
+            return head
+        #assign odd pointer to the first element 
+        oddpointer = head
+        #then the second element gets the even pointer 
+        evenpointer = head.next
+        # we store the even head as the next element from our original list 
+        even = head.next
+        
+        while evenpointer!=None and evenpointer.next !=None:
+            #while the first pointer(even) is not null and is pointing to something 
+            #move the odd pointer two steps
+            oddpointer.next=oddpointer.next.next
+            #assign the oddpointer to the new position
+            oddpointer=oddpointer.next
+            #do the same to even, move it twice
+            evenpointer.next= evenpointer.next.next
+            evenpointer = evenpointer.next
+        #make the next pointer of our odd list to point to the head of the evenlist     
+        oddpointer.next = even
+        return head 
+
+    ''' Palindrome Linked List
+        A palindrome is nothing but a string or number which is same whether you read it from right to left or left to right. 
+        It is like the string and its mirror image both are same.
+
+        aproaches : 
+        1. using a stack : save lal the linked list element in the stack the pop and compare to the linkedlist 
+        stk=[]
+        temp=head
+        while(temp!=None):
+            stk.append(temp)
+            temp=temp.next
+        
+        while(head!=None):
+            if(stk.pop().val!=head.val):
+                return False
+            head=head.next
+        return True
+        2. spliting the list into two halves then reversing the second one and comparing the both lists
+        3. recursion : We will take two pointers, one for the leftmost node and the other one for the rightmost node. 
+                        We will check if the data of the left and the right nodes matches or not. If there is a match, we will go on recursively to check for the rest of the list. 
+                        At last, if all the calls return true (that conveys match), we can conclude that the given Linked List is a palindrome.
+            
+
+    '''
+    def isPalindrome(self, head):
+        
+        left = head 
+        
+        if head == None:
+            return True
+        isp = self.isPalindrome(head.next)
+        if isp == False:
+            return False
+        isp1 = head.val==left.val
+        
+        left=left.next
+        
+        return isp1
+
+        
         
 
 
