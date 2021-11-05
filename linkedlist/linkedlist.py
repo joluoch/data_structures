@@ -403,8 +403,63 @@ class MyLinkedList:
             curr.next = l2
             
         return output
-        '''
-                
+      '''
+    def addTwoNumbers(self, l1, l2):
+        head = None 
+        curr = None
+        
+        carry = 0 
+        
+        while l1 != None and l2 != None:
+            s = l1.val + l2.val + carry
+            carry = s/10
+            s= s % 10
+            
+            if head == None:
+                head = Node(s)
+                curr = head
+            else:
+                curr.next = Node(s)
+                curr = curr.next 
+            l1 = l1.next
+            l2 = l2.next
+        while l1 != None:
+            s = l1 + carry 
+            carry = s /10
+            s = s % 10
+            curr.next = Node(s)
+            curr = curr.next
+            l1 = l1.next
+            
+        while l2 != None:
+            s = l2 + carry 
+            carry = s /10
+            s = s % 10
+            curr.next = Node(s)
+            curr = curr.next
+            l2 = l2.next
+        if carry != 0:
+            curr.next = Node(carry)
+            
+        return head        
+            
+    '''
+    ADDING TWO NUMBER ALTERNATIVE
+    dummy = ListNode(0)
+    curr = dummy
+    carry = 0
+    while carry or l1 or l2:
+      if l1:
+        carry += l1.val
+        l1 = l1.next
+      if l2:
+        carry += l2.val
+        l2 = l2.next
+      curr.next = ListNode(carry % 10)
+      carry //= 10
+      curr = curr.next
+
+    return dummy.next'''
 
         
         
