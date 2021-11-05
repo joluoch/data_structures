@@ -22,3 +22,5 @@ class Soltion:
                 if curr!= None:
                     tail = curr
         return tail 
+
+    #https://www.youtube.com/watch?v=RIyPgR7AF7M
