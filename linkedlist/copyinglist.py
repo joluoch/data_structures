@@ -35,5 +35,5 @@ class Solution:
             old = cur.next
         return dummy.next
 
-#https://www.youtube.com/watch?v=g7U-FPBR_gQ
+#https://www.youtube.com/watch?v=g7U-FPBR_gQ 
         
