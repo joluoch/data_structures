@@ -1,6 +1,6 @@
 import collections
 
-def openLock(self, deadends: List[str], target: str) -> int:
+def openLock(self, deadends, target: str) -> int:
         nums = []
         deadends = set(deadends)
         
