@@ -1,7 +1,7 @@
 #bfs approach 
 import collections
 class Solution:
-    def numIslands(self, grid: List[List[str]]) -> int:
+    def numIslands(self, grid) -> int:
         if not grid:
             return 0
         rows,cols = len(grid),len(grid[0])
@@ -16,7 +16,7 @@ class Solution:
 
             while q:
                 
-                row,col = q.popleft()
+                row,col = q.popleft() #for ds just change to pop, but an iterative dfs
                 direction = [[1,0],[-1,0],[0,1],[0,-1]]
 
                 for dr,dc in direction:
