@@ -483,7 +483,8 @@ class MyLinkedList:
         newHead = tail.next
         tail.next = None
 
-        return newHead
+        return 
+# change pass
         
         
 
