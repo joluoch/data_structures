@@ -1,4 +1,4 @@
-'''Leetcode question fine the pivot index .
+'''Leetcode question find the pivot index .
     Pivot Index - The pivot index is the index where the sum of all the numbers strictly to the left of the index is equal 
     to the sum of all the numbers strictly to the index's right
 
@@ -11,6 +11,9 @@
 '''
 
 def pivotIndex(self, nums) -> int:
+
+    if not nums :
+        return []
 
     add = sum(nums)
     leftnums = 0 
@@ -127,6 +130,7 @@ def plusOne(self, digits) :
 def findDiagonalOrder(self, mat) :
         if not mat or not mat[0]:#base case, check if matrix is empty or if the we have 0 columns 
             return []
+
         num_rows, num_cols = len(mat),len(mat[0])
         diagonals = [[]for _ in range(num_rows + num_cols - 1)]#lost comprehensions and create a new list 
         
@@ -224,3 +228,6 @@ ALTERNATIVE
       trow=[left+right for left,right in zip(trow+y, y+trow)]
    return n>=1
 '''
+
+#################################################################################################################################################################
+# STRING LEETCODE QUESTIONS 
