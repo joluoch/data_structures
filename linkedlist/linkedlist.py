@@ -154,7 +154,19 @@ class MyLinkedList:
         Every node is checked to see if the next is pointing to a temporary node or not. 
         In the case of the first node of the loop, the second time we traverse it this condition will be true, hence we find that loop exists. 
         If we come across a node that points to null then the loop doesn’t exist. '''
-
+    ''' 
+        def hascycle(head):
+            temp = ""
+            while head.next !=None:
+                if head.next is None:
+                    return False
+                if head.next == temp:
+                    return true 
+                nex = head.next 
+                head.next = temp
+                head = next
+            return False 
+    '''
     
     def detectLoop(self): # using floyd's cycle 
         
