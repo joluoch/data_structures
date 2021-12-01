@@ -506,6 +506,17 @@ def reverseWords(self, s: str) -> str:
 #######################################################################################################################################
 #mic
 
+'''two sum '''
+def twoSum(self, nums: List[int], target: int) -> List[int]:
+
+    hashmap={}
+
+    for i, num in enumerate(nums):
+        if target - num in hashmap:
+            return hashmap[target - num],i
+        hashmap[num] = i 
+
+
 '''is palindrome string'''
 def isPalindrome(self, s: str) -> bool:
         l,r = 0, len(s)-1
@@ -525,3 +536,52 @@ def alnum(self,c):
     return (ord('A')<= ord(c)<=ord('Z')or
             ord('a')<= ord(c)<=ord('z')or
             ord('0')<= ord(c)<=ord('9'))
+
+def myAtoi(self, s: str) -> int:
+        
+    maxi  = 2 **31 -1
+    mini = -2 **31
+        
+    res = 0 
+    i = 0 
+    negative = 1
+        
+    # white space 
+    while i < len(s) and s[i] == '':
+        i += 1
+        
+    #check symbol +/-
+        
+    if i < len(s) and s[i] == '-':
+        i += 1
+        negative = -1
+    elif i < len(s) and s[i] == '+':
+        i+=1
+    # check number 
+    checker = set('0123456789')
+    while i < len(s) and s[i] in checker:
+        if res >maxi /10 or (res == maxi/10 and int(s[i])>7):
+            return maxi if negative == 1 else mini
+        res = res * 10 + int(s[i])
+        i += 1
+            
+    return res * negative 
+    '''https://www.youtube.com/watch?v=zwZXiutgrUE'''
+
+'''REverse a string 
+    Input: s = ["h","e","l","l","o"]
+    Output: ["o","l","l","e","h"]
+'''
+def reverseString(self, s) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        l = 0
+        r = len(s) - 1 
+        
+        while l < r:
+            #swap the elements
+            s[l],s[r] = s[r],s[l]
+            
+            l +=1
+            r -= 1
