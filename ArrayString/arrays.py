@@ -424,7 +424,7 @@ def arrayPairSum(self, nums: List[int]) -> int:
         return sum
 '''
 ''' 
-    TWO SUM I
+    TWO SUM I #micro
     Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 
     You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -503,3 +503,126 @@ def reverseWords(self, s: str) -> str:
 '''
 def reverseWords(self, s: str) -> str:
         return " ".join([word[::-1] for word in s.split()])
+#######################################################################################################################################
+#mic
+
+'''two sum '''
+def twoSum(self, nums: List[int], target: int) -> List[int]:
+
+    hashmap={}
+
+    for i, num in enumerate(nums):
+        if target - num in hashmap:
+            return hashmap[target - num],i
+        hashmap[num] = i 
+
+
+'''is palindrome string'''
+def isPalindrome(self, s: str) -> bool:
+        l,r = 0, len(s)-1
+        while l <r:
+            while l<r and not self.alnum(s[l]):
+                l+=1
+            while r>l and not self.alnum(s[r]):
+                r-=1 
+            if s[l].lower() != s[r].lower():
+                return False 
+            l,r = l+1, r-1
+        return True 
+            
+    
+    
+def alnum(self,c):
+    return (ord('A')<= ord(c)<=ord('Z')or
+            ord('a')<= ord(c)<=ord('z')or
+            ord('0')<= ord(c)<=ord('9'))
+
+def myAtoi(self, s: str) -> int:
+        
+    maxi  = 2 **31 -1
+    mini = -2 **31
+        
+    res = 0 
+    i = 0 
+    negative = 1
+        
+    # white space 
+    while i < len(s) and s[i] == '':
+        i += 1
+        
+    #check symbol +/-
+        
+    if i < len(s) and s[i] == '-':
+        i += 1
+        negative = -1
+    elif i < len(s) and s[i] == '+':
+        i+=1
+    # check number 
+    checker = set('0123456789')
+    while i < len(s) and s[i] in checker:
+        if res >maxi /10 or (res == maxi/10 and int(s[i])>7):
+            return maxi if negative == 1 else mini
+        res = res * 10 + int(s[i])
+        i += 1
+            
+    return res * negative 
+    '''https://www.youtube.com/watch?v=zwZXiutgrUE'''
+
+'''REverse a string 
+    Input: s = ["h","e","l","l","o"]
+    Output: ["o","l","l","e","h"]
+'''
+def reverseString(self, s) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        l = 0
+        r = len(s) - 1 
+        
+        while l < r:
+            #swap the elements
+            s[l],s[r] = s[r],s[l]
+            
+            l +=1
+            r -= 1
+'''reverse words in a string 2'''
+def reverseWords(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        def reverse(l,r):
+            while l<r:
+                s[l],s[r] = s[r],s[l]
+                l+=1
+                r-=1
+        def reverseword(n):
+            i = 0
+            j = 0
+            
+            while i<n:
+                while i < j or (i < n and s[i] == ' '):  # skip spaces
+                    
+                    i += 1
+                while j < i or (j < n and s[j] != ' '):  # skip non spaces
+                    
+                    j+= 1
+                
+                reverse(i, j - 1)  # reverse the word
+        
+        reverse(0, len(s) - 1)  # reverse the whole string
+        reverseword(len(s))  # reverse each word
+        
+def longestPalindrome(self, s: str) -> str:
+    def helper(l,r):#heper to return the longest palindrome from middle
+        while l>=0 and r < len(s) and s[l]==s[r]:
+            l -= 1
+            r += 1
+        return s[l+1:r] # return substring, we add +1 coz the ending index will be the length 
+    res = ''
+    for i in range(len(s)):
+        test = helper(i,i)
+        if len(test)>len(res):res =test
+        #even
+        test = helper(i,i+1)
+        if len(test)>len(res):res =test
+    return res
