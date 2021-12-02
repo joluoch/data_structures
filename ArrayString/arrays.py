@@ -585,3 +585,44 @@ def reverseString(self, s) -> None:
             
             l +=1
             r -= 1
+'''reverse words in a string 2'''
+def reverseWords(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        def reverse(l,r):
+            while l<r:
+                s[l],s[r] = s[r],s[l]
+                l+=1
+                r-=1
+        def reverseword(n):
+            i = 0
+            j = 0
+            
+            while i<n:
+                while i < j or (i < n and s[i] == ' '):  # skip spaces
+                    
+                    i += 1
+                while j < i or (j < n and s[j] != ' '):  # skip non spaces
+                    
+                    j+= 1
+                
+                reverse(i, j - 1)  # reverse the word
+        
+        reverse(0, len(s) - 1)  # reverse the whole string
+        reverseword(len(s))  # reverse each word
+        
+def longestPalindrome(self, s: str) -> str:
+    def helper(l,r):#heper to return the longest palindrome from middle
+        while l>=0 and r < len(s) and s[l]==s[r]:
+            l -= 1
+            r += 1
+        return s[l+1:r] # return substring, we add +1 coz the ending index will be the length 
+    res = ''
+    for i in range(len(s)):
+        test = helper(i,i)
+        if len(test)>len(res):res =test
+        #even
+        test = helper(i,i+1)
+        if len(test)>len(res):res =test
+    return res

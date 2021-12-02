@@ -4,8 +4,8 @@ def isValid(self, s: str) -> bool:
         closeToOpen = {')':'(',']':'[','}':'{'} # dictionarry mappin to avoid alot of if staements 
         
         for symbol in s :
-            if symbol in closeToOpen:
-                if stack and stack[-1] == closeToOpen[symbol]:
+            if symbol in closeToOpen:#because the key is always the closing parenthesis
+                if stack and stack[-1] == closeToOpen[symbol]:#if stack is empty or if topstack is equal to symbol value
                     stack.pop()  #pop from stack if the top of the stack if equal to the key of in the dictionary
                 else:
                     return False
