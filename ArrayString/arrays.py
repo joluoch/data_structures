@@ -611,7 +611,9 @@ def reverseWords(self, s: List[str]) -> None:
         
         reverse(0, len(s) - 1)  # reverse the whole string
         reverseword(len(s))  # reverse each word
-        
+'''
+
+'''
 def longestPalindrome(self, s: str) -> str:
     def helper(l,r):#heper to return the longest palindrome from middle
         while l>=0 and r < len(s) and s[l]==s[r]:
@@ -626,3 +628,45 @@ def longestPalindrome(self, s: str) -> str:
         test = helper(i,i+1)
         if len(test)>len(res):res =test
     return res
+
+'''
+    Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+
+    An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase,
+    typically using all the original letters exactly once.
+
+    example : 
+        Input: strs = ["eat","tea","tan","ate","nat","bat"]
+        Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+    
+    we are goint to sort the strings ; by first making it into a list then sorting and using the join funtion to 
+    convert back to sting
+    so if another sting has the same key we append it to that dictionary
+
+'''
+def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+    dict = defaultdict(list)
+        
+    for word in strs:
+        key = ''.join(sorted(list(word)))
+        dict[key].append(word)
+    return dict.values()
+
+'''Trapping Rain Water'''
+def trap(self, height: List[int]) -> int:
+    l=0
+    r = len(height)-1
+    maxl = height[l]
+    maxr = height[r]
+    ans =0
+        
+    while l < r:
+        if maxl<maxr:
+            l+=1
+            maxl = max(maxl,height[l])
+            ans+= maxl - height[l]
+        else:
+            r-=1
+            maxr = max(maxr,height[r])
+            ans+= maxr - height[r]
+    return ans
