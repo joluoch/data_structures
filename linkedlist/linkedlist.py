@@ -145,30 +145,8 @@ class MyLinkedList:
         2. one pointer(slow_p) by one and another pointer(fast_p) by two.
         3. If these pointers meet at the same node then there is a loop. 
         4. If pointers do not meet then linked list doesn’t have a loop.
-        
 
-
-    3. by Marking visited nodes without modifying the linked list data structure :
-        In this method, a temporary node is created. The next pointer of each node that is traversed is made to point to this temporary node. 
-        This way we are using the next pointer of a node as a flag to indicate whether the node has been traversed or not. 
-        Every node is checked to see if the next is pointing to a temporary node or not. 
-        In the case of the first node of the loop, the second time we traverse it this condition will be true, hence we find that loop exists. 
-        If we come across a node that points to null then the loop doesn’t exist. '''
-    ''' 
-        def hascycle(head):
-            temp = ""
-            while head.next !=None:
-                if head.next is None:
-                    return False
-                if head.next == temp:
-                    return true 
-                nex = head.next 
-                head.next = temp
-                head = next
-            return False 
-    '''
-    
-    def detectLoop(self): # using floyd's cycle 
+            def detectLoop(self): # using floyd's cycle 
         
         slow_p = self.head
         fast_p = self.head
@@ -181,6 +159,38 @@ class MyLinkedList:
 
 
                 return
+        
+
+
+    3. by Marking visited nodes without modifying the linked list data structure :
+        In this method, a temporary node is created. The next pointer of each node that is traversed is made to point to this temporary node. 
+        This way we are using the next pointer of a node as a flag to indicate whether the node has been traversed or not. 
+        Every node is checked to see if the next is pointing to a temporary node or not. 
+        In the case of the first node of the loop, the second time we traverse it this condition will be true, hence we find that loop exists. 
+        If we come across a node that points to null then the loop doesn’t exist. '''
+    
+    def hascycle(head):
+        temp = ""
+        while head !=None:
+            # This condition is for the case
+            # when there is no loop
+            if head.next is None:
+                return False
+            # Check if next is already
+            # pointing to temp
+            if head.next == temp:
+                return True
+            # Store the pointer to the next node
+            # in order to get to it in the next step
+            nex = head.next 
+            # Make next poto temp
+            head.next = temp
+            # get to the next node in list 
+            head = nex
+        return False 
+    
+    
+
     #checking where the cycle starts from 
     def detectCycle(self, head):
 
@@ -496,7 +506,162 @@ class MyLinkedList:
         tail.next = None
 
         return 
-# change pass
+    # change pass
+
+    ########################################################################################################################################################################################################
+    #mic
+    '''linked list cycle '''
+    def reverseList(self, head):
+        
+        if head is None or head.next is None:
+            return head 
+        #we will use two pointers alreadyreversed will point to the firt node and current will point to the next node
+        # we will make already revversed, which is out head to point to none, meaning it has already been reversed 
+        alreadyReversed,current = head,head.next
+        alreadyReversed.next= None
+        # while our next pointer, current isn't pointing to the original none(end)
+        while current is not None:
+            # we make another pointer that will store the third value in our original list 
+            storePtr  = current.next
+            #then we will reverse the third value to point the reversed which we moved one step forward
+            current.next = alreadyReversed
+            
+            alreadyReversed = current
+            current = storePtr
+        return alreadyReversed 
+    '''
+    linked list cyle 1
+    3. by Marking visited nodes without modifying the linked list data structure :
+        In this method, a temporary node is created. The next pointer of each node that is traversed is made to point to this temporary node. 
+        This way we are using the next pointer of a node as a flag to indicate whether the node has been traversed or not. 
+        Every node is checked to see if the next is pointing to a temporary node or not. 
+        In the case of the first node of the loop, the second time we traverse it this condition will be true, hence we find that loop exists. 
+        If we come across a node that points to null then the loop doesn’t exist. '''
+    
+    def hascycle(head):
+        temp = ""
+        while head !=None:
+            # This condition is for the case
+            # when there is no loop
+            if head.next is None:
+                return False
+            # Check if next is already
+            # pointing to temp
+            if head.next == temp:
+                return True
+            # Store the pointer to the next node
+            # in order to get to it in the next step
+            nex = head.next 
+            # Make next poto temp
+            head.next = temp
+            # get to the next node in list 
+            head = nex
+        return False 
+    '''linked list cycle 2'''
+    def detectCycle(self, head: ListNode) -> ListNode:
+        slow = head
+        fast = head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                slow = head
+            while slow != fast:
+                slow = slow.next
+                fast = fast.next
+            return slow
+
+        return None
+    
+    '''addtwo numbers
+        You are given two non-empty linked lists representing two non-negative integers. 
+        The digits are stored in reverse order, and each of their nodes contains a single digit. 
+        Add the two numbers and return the sum as a linked list.
+    '''
+    def addTwoNumbers(self, l1, l2) :
+        
+        dummy = Node(0)
+        curr = dummy
+        carry = 0 
+        
+        while carry or l1 or l2:
+            if l1:
+                carry += l1.val
+                l1 = l1.next
+            if l2:
+                carry += l2.val
+                l2 = l2.next
+            curr.next = Node(carry%10)
+            carry //= 10
+            curr = curr.next
+        return dummy.next 
+
+    '''add two numbers 2 
+        You are given two non-empty linked lists representing two non-negative integers. 
+        The most significant digit comes first and each of their nodes contains a single digit. 
+        Add the two numbers and return the sum as a linked list.
+    '''
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        stack1 = []
+        stack2=[]
+        
+        while l1:
+            stack1.append(l1)
+            l1 =l1.next
+        while l2:
+            stack2.append(l2)
+            l2 = l2.next
+        
+        head = None
+        carry = 0 
+        
+        while carry or stack1 or stack2:
+            if stack1:
+                carry+= stack1.pop().val
+            if stack2:
+                carry += stack2.pop().val
+            
+            node = Node(carry%10)
+            node.next = head
+            head = node
+            carry //= 10
+        return head 
+
+    '''merge two sorted lists'''
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        if not list1 or not list2:
+            return list1 if list1 else list2
+
+        if list1.val>list2.val:
+            list1,list2 = list2, list1
+        list1.next = self.mergeTwoLists(list1.next,list2)
+        return list1
+
+    '''merge k sorted list '''
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        
+        if not lists or len(lists) == 0 :
+            return None
+        
+        while len(lists)>1:
+            mergedlist =[]
+            
+            for i in range (0,len(lists),2):
+                l1 = lists[i]
+                l2 =lists[i+1] if (i+1) < len(lists) else None
+                mergedlist.append(self.merge(l1,l2))
+            lists = mergedlist
+        return lists[0]
+    
+    '''helper'''
+    def merge(self,list1,list2):
+        if not list1 or not list2:
+            return list1 if list1 else list2
+        if list1.val>list2.val:
+            list1,list2 = list2, list1
+        list1.next = self.merge(list1.next,list2)
+        return list1
         
         
 
