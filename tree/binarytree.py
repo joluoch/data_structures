@@ -283,8 +283,8 @@ class Tree:
             levelorder.append(List)
         return levelorder
 
-        #building a tree from a post order and inorder traversal
-        # adopted from https://www.youtube.com/watch?v=_1ZJ343CYIU
+    #building a tree from a post order and inorder traversal
+    # adopted from https://www.youtube.com/watch?v=_1ZJ343CYIU
     def buildTree(self, inorder, postorder):
         mapper= {}
         
@@ -311,9 +311,9 @@ class Tree:
             #root.left = rec(inorder[:mid],postorder)# the left we will use mid because the las element in indexing is not included
             #return root
         #return recursion(inorder,postorder)
-    # build a tree from pre order and inorder 
 
-    
+
+    # build a tree from pre order and inorder 
     def buildTree(self, preorder, inorder) :
         
         if not preorder or not inorder:
@@ -409,10 +409,129 @@ class Tree:
 
     
         
-        
-       
-        
+    #####################################################################################################################################################################################################################################
 
+    #mic
+    '''validate binary search tree''' 
+    def isValidBST(self, root) -> bool:
+        def valid(node,left_bound,right_bound):
+            if not node:
+                return True # n empty binary tree is a binary tree 
+            if not (node.val< right_bound and node.val>left_bound):#right bound is infinity left, legative infinity
+                return False
+            return(valid(node.left,left_bound,node.val)and valid(node.right,node.val,right_bound))
+        return valid(root,float('-inf'),float('inf'))
+    
+    '''inoder traversal left root right'''
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        
+        result = []
+        self.traverse(root, result)
+        return result
+    
+
+    def traverse(self, root, result):
+        if root == None:
+            return
+        
+        self.traverse(root.left, result)
+        result.append(root.val)
+        self.traverse(root.right, result)
+
+    '''zigzag traversal'''
+    def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        output =[]
+        
+        def dfs(node,level,output):
+            if not node:
+                return 
+            if len(output) <= level:
+                output +=[[]]
+            dfs(node.left,level+1,output)
+            dfs(node.right,level+1,output)
+            
+            if level % 2 ==0 :
+                output[level].append(node.val)
+            else:
+                output[level].insert(0,node.val)
+        dfs(root,0,output)
+        return output
+
+    '''next right pointer 1 compleet binarry with two children'''
+    def connect(self, root) :
+        if not root:
+            return
+        if root.left:
+            root.left.next = root.right
+        if root.right:
+            if root.next:
+                root.right.next = root.next.left
+            else:
+                root.right.next = None
+        self.connect(root.right)
+        self.connect(root.left)
+        
+        return root
+    
+    '''next pinter 2 '''
+    def connect(self, root: 'Node') -> 'Node':
+        queue = deque([root]if root else [])
+        while queue:
+            nex = deque()
+            for _ in range(len(queue)):
+                front = queue.popleft()
+                front.next = queue[0] if queue else None
+                
+                if front.left: nex.append(front.left)
+                if front.right: nex.append(front.right)
+            queue = nex
+        return root
+    
+    '''lowest common ancestor binary search tree'''
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        
+        curr = root
+        
+        while curr:
+            if p.val>curr.val and q.val > curr.val:
+                curr = curr.right
+            elif p.val<curr.val and q.val < curr.val:
+                
+                curr = curr.left
+            else:
+                return curr
+
+    '''Lowest Common ancestor binary tree: The lowest common ancestor is defined between two nodes node1 and node2 as 
+    the lowest node in a tree that has both node1 and node2 as descendants (a node can be a descendant of itself).
+    
+    -> Recursive approach — Recursively look for any of the two nodes and return it, 
+    the first node to encounter both of them in its subtree is the ancestor.'''
+    def lowestCommonAncestor(self, root, p, q) :
+        if not root:
+            return None
+        if root == p or root == q :
+            return root
+        left = self.lowestCommonAncestor(root.left,p,q)
+        right = self.lowestCommonAncestor(root.right,p,q)
+        
+        if not left:
+            return right
+        if not right:
+            return left 
+        else:
+            return root 
+    '''build tree using preorder and inorder'''
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        
+        if not preorder or not inorder:
+            return None
+        root = Tree(preorder[0])
+        mid  = inorder.index(preorder[0])
+        
+        root.left = self.buildTree(preorder[1:mid+1],inorder[:mid])
+        root.right = self.buildTree(preorder[mid+1:],inorder[mid+1:])
+        
+        return root
 
 
     
