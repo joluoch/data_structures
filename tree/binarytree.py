@@ -349,7 +349,7 @@ class Tree:
     '''Lowest Common ancestor: The lowest common ancestor is defined between two nodes node1 and node2 as 
     the lowest node in a tree that has both node1 and node2 as descendants (a node can be a descendant of itself).
     
-    -> Recursive approach — Recursively look for any of the two nodes and return it, 
+    -> Recursive approach Recursively look for any of the two nodes and return it, 
     the first node to encounter both of them in its subtree is the ancestor.'''
     def lowestCommonAncestor(self, root, p, q) :
         if not root:
