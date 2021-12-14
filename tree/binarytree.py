@@ -349,7 +349,7 @@ class Tree:
     '''Lowest Common ancestor: The lowest common ancestor is defined between two nodes node1 and node2 as 
     the lowest node in a tree that has both node1 and node2 as descendants (a node can be a descendant of itself).
     
-    -> Recursive approach — Recursively look for any of the two nodes and return it, 
+    -> Recursive approach Recursively look for any of the two nodes and return it, 
     the first node to encounter both of them in its subtree is the ancestor.'''
     def lowestCommonAncestor(self, root, p, q) :
         if not root:
@@ -532,6 +532,63 @@ class Tree:
         root.right = self.buildTree(preorder[mid+1:],inorder[mid+1:])
         
         return root
+    
+    '''copy graph'''
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        
+        OldtoNew ={}
+        
+        def dfs(node):
+            if node in OldtoNew:
+                return OldtoNew[node]
+            copy = Node(node.val)
+            OldtoNew[node]= copy
+            
+            for nei in node.neighbors:
+                copy.neighbors.append(dfs(nei))
+            
+            return copy
+        return dfs(node) if node else None
+    
+    '''number of islands'''
+    def numIslands(self, grid: List[List[str]]) -> int:
+        
+        if not grid :
+            return 0
+        
+        rows,cols = len(grid),len(grid[0])
+        visit = set()
+        islands = 0 
+        
+        def bfs(r,c):
+            
+            q = collections.deque()
+            q.append((r,c))
+            visit.add((r,c))
+            
+            while q:
+                
+                row,col = q.popleft()
+                direction = [[1,0],[-1,0],[0,1],[0,-1]]
+                
+                for dr , dc in direction:
+                    r,c = row+dr , col+dc
+                    
+                    if (r in range(rows) and 
+                        c in range(cols) and 
+                        grid[r][c]=='1'and 
+                        (r,c) not in visit):
+                        q.append((r,c))
+                        visit.add((r,c))
+        
+        
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == '1' and (r,c) not in visit:
+                    
+                    bfs(r,c)
+                    islands +=1
+        return islands
 
 
     

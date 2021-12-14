@@ -35,7 +35,7 @@ def findMaxConsecutiveOnes(self, nums) -> int:
 '''remove duplicates on sortedd array'''
 def removeDuplicates(self, nums) -> int:
     if not nums:
-        return []
+        return 0
         
     i = 0 
         
@@ -505,6 +505,18 @@ def reverseWords(self, s: str) -> str:
         return " ".join([word[::-1] for word in s.split()])
 #######################################################################################################################################
 #mic
+'''remove duplicates on sortedd array'''
+def removeDuplicates(self, nums) -> int:
+    if not nums:
+        return 0
+        
+    i = 0 
+        
+    for num in nums : 
+        if i < 1 or num  > nums[i-1]:
+            nums[i]=num
+            i +=1
+    return i
 
 '''two sum '''
 def twoSum(self, nums: List[int], target: int) -> List[int]:
