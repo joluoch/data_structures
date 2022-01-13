@@ -504,7 +504,7 @@ def reverseWords(self, s: str) -> str:
 def reverseWords(self, s: str) -> str:
         return " ".join([word[::-1] for word in s.split()])
 #######################################################################################################################################
-#mic
+#microsoft questions 
 '''remove duplicates on sortedd array'''
 def removeDuplicates(self, nums) -> int:
     if not nums:
@@ -580,7 +580,35 @@ def myAtoi(self, s: str) -> int:
     return res * negative 
     '''https://www.youtube.com/watch?v=zwZXiutgrUE'''
 
-'''REverse a string 
+'''REverse a string def myAtoi(self, s: str) -> int:
+        
+    maxi  = 2 **31 -1
+    mini = -2 **31
+        
+    res = 0 
+    i = 0 
+    negative = 1
+        
+    # white space 
+    while i < len(s) and s[i] == '':
+        i += 1
+        
+    #check symbol +/-
+        
+    if i < len(s) and s[i] == '-':
+        i += 1
+        negative = -1
+    elif i < len(s) and s[i] == '+':
+        i+=1
+    # check number 
+    checker = set('0123456789')
+    while i < len(s) and s[i] in checker:
+        if res >maxi /10 or (res == maxi/10 and int(s[i])>7):
+            return maxi if negative == 1 else mini
+        res = res * 10 + int(s[i])
+        i += 1
+            
+    return res * negative 
     Input: s = ["h","e","l","l","o"]
     Output: ["o","l","l","e","h"]
 '''
